@@ -61,4 +61,13 @@ public class RecipeTest {
     assertEquals(category2, Recipe.find(recipe2.getId()).getCategories().get(0));
   }
 
+  @Test
+  public void remove_removesRecipe_0() {
+    Recipe recipe = new Recipe("Name", "Instructions");
+    recipe.save();
+    assertEquals(1, Recipe.all().size());
+    recipe.remove();
+    assertEquals(0, Recipe.all().size());
+  }
+
 }
