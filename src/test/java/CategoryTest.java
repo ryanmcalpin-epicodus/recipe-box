@@ -41,4 +41,12 @@ public class CategoryTest {
     category2.save();
     assertEquals(category2, Category.find(category2.getId()));
   }
+
+  @Test
+  public void updateName_changesNameOfCategory_true() {
+    Category category = new Category("Name");
+    category.save();
+    category.updateName("New Name");
+    assertTrue(Category.find(category.getId()).getName().equals("New Name"));
+  }
 }

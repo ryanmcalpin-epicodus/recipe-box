@@ -45,16 +45,20 @@ public class RecipeTest {
 
   @Test
   public void addCategory_associatesRecipeWithCategory_category() {
-    Recipe recipe = new Recipe("Name", "Instructions");
-    recipe.save();
+    Recipe recipe1 = new Recipe("Name", "Instructions");
+    recipe1.save();
+    Recipe recipe2 = new Recipe("Namer", "Instructionsr");
+    recipe2.save();
     Category category1 = new Category("Name");
     category1.save();
     Category category2 = new Category("Namer");
     category2.save();
-    recipe.addCategory(category1);
-    recipe.addCategory(category2);
-    assertEquals(category1, Recipe.find(recipe.getId()).getCategories().get(0));
-    assertEquals(category2, Recipe.find(recipe.getId()).getCategories().get(1));
+    recipe1.addCategory(category1);
+    recipe1.addCategory(category2);
+    recipe2.addCategory(category2);
+    assertEquals(category1, Recipe.find(recipe1.getId()).getCategories().get(0));
+    assertEquals(category2, Recipe.find(recipe1.getId()).getCategories().get(1));
+    assertEquals(category2, Recipe.find(recipe2.getId()).getCategories().get(0));
   }
 
 }
