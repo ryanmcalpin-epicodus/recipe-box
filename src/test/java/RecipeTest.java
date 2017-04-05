@@ -70,4 +70,20 @@ public class RecipeTest {
     assertEquals(0, Recipe.all().size());
   }
 
+  @Test
+  public void updateName_changesNameOfRecipe_true() {
+    Recipe recipe = new Recipe("Name", "Instructions");
+    recipe.save();
+    recipe.updateName("New Name");
+    assertTrue(Recipe.find(recipe.getId()).getName().equals("New Name"));
+  }
+
+  @Test
+  public void updateInstructions_changesInstructions_true() {
+    Recipe recipe = new Recipe("Name", "Instructions");
+    recipe.save();
+    recipe.updateInstructions("New Instructions");
+    assertTrue(Recipe.find(recipe.getId()).getInstructions().equals("New Instructions"));
+  }
+
 }
