@@ -86,4 +86,22 @@ public class RecipeTest {
     assertTrue(Recipe.find(recipe.getId()).getInstructions().equals("New Instructions"));
   }
 
+  @Test
+  public void addIngredient_associatesIngredientWithRecipe_recipe() {
+    Ingredient ingredient1 = new Ingredient("Name");
+    ingredient1.save();
+    Ingredient ingredient2 = new Ingredient("Namer");
+    ingredient2.save();
+    Recipe recipe1 = new Recipe("Name", "Instructions");
+    recipe1.save();
+    Recipe recipe2 = new Recipe("Namer", "Instructionsr");
+    recipe2.save();
+    recipe1.addIngredient(ingredient1);
+    recipe1.addIngredient(ingredient2);
+    recipe2.addIngredient(ingredient2);
+    assertEquals(ingredient1, Recipe.find(recipe1.getId()).getIngredients().get(0));
+    assertEquals(ingredient2, Recipe.find(recipe1.getId()).getIngredients().get(1));
+    assertEquals(ingredient2, Recipe.find(recipe2.getId()).getIngredients().get(0));
+  }
+
 }
