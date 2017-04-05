@@ -60,4 +60,13 @@ public class Ingredient {
     }
   }
 
+  public List<Recipe> getRecipes() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT recipes.* FROM ingredients JOIN recipes_ingredients ON (recipes.id = recipes_ingredients.recipe_id) JOIN recipes ON (ingredients.id = recipes_ingredients.ingredient_id) WHERE ingredients.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Recipe.class);
+    }
+  }
+
 }

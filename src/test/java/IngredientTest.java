@@ -42,4 +42,18 @@ public class IngredientTest {
     ingredient2.save();
     assertEquals(ingredient2, Ingredient.find(ingredient2.getId()));
   }
+
+  @Test
+  public void getRecipes_returnsAllRecipesUsingIngredient_true() {
+    Ingredient ingredient = new Ingredient("Name");
+    ingredient.save();
+    Recipe recipe1 = new Recipe("Name", "Instructions");
+    recipe1.save();
+    Recipe recipe2 = new Recipe("Namer", "Instructionsr");
+    recipe2.save();
+    recipe1.addIngredient(ingredient);
+    recipe2.addIngredient(ingredient);
+    assertTrue(Ingredient.find(ingredient.getId()).getRecipes().get(0).equals(recipe1));
+    assertTrue(Ingredient.find(ingredient.getId()).getRecipes().get(1).equals(recipe2));
+  }
 }
