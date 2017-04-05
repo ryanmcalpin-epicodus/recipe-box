@@ -153,4 +153,13 @@ public class Recipe {
     }
   }
 
+  public float averageVotes() {
+    List<Integer> votes = this.getVotes();
+    float ratingsSum = 0;
+    for (int rating : votes) {
+      ratingsSum += rating;
+    }
+    return ratingsSum / votes.size();
+  }
+
 }

@@ -114,4 +114,13 @@ public class RecipeTest {
     assertEquals("3", Recipe.find(recipe.getId()).getVotes().get(1).toString());
   }
 
+  @Test
+  public void averageVotes_returnsMeanAverageOfAllVotes_4() {
+    Recipe recipe = new Recipe("Name", "instructions");
+    recipe.save();
+    recipe.vote(5);
+    recipe.vote(3);
+    assertEquals(4, Recipe.find(recipe.getId()).averageVotes(), 0);
+  }
+
 }
