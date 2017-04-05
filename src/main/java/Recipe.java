@@ -67,4 +67,23 @@ public class Recipe {
     }
   }
 
+  public void addCategory(Category category) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO categories_recipes (category_id, recipe_id) VALUES (:category_id, :recipe_id)";
+      con.createQuery(sql)
+        .addParameter("category_id", category.getId())
+        .addParameter("recipe_id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  public List<Category> getCategories() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT categories.* FROM recipes JOIN categories_recipes ON (recipes.id = categories_recipes.recipe_id) JOIN categories ON (categories.id = categories_recipes.category_id) WHERE recipes.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Category.class);
+    }
+  }
+
 }
