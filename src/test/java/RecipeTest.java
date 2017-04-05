@@ -104,4 +104,14 @@ public class RecipeTest {
     assertEquals(ingredient2, Recipe.find(recipe2.getId()).getIngredients().get(0));
   }
 
+  @Test
+  public void vote_addsVoteToDatabase_5() {
+    Recipe recipe = new Recipe("Name", "instructions");
+    recipe.save();
+    recipe.vote(5);
+    recipe.vote(3);
+    assertEquals("5", Recipe.find(recipe.getId()).getVotes().get(0).toString());
+    assertEquals("3", Recipe.find(recipe.getId()).getVotes().get(1).toString());
+  }
+
 }

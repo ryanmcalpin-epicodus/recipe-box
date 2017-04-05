@@ -134,4 +134,23 @@ public class Recipe {
     }
   }
 
+  public void vote(int rating) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO votes (rating, recipe_id) VALUES (:rating, :recipe_id)";
+      con.createQuery(sql)
+        .addParameter("rating", rating)
+        .addParameter("recipe_id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  public List<Integer> getVotes() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT rating FROM votes WHERE recipe_id = :recipe_id";
+      return con.createQuery(sql)
+        .addParameter("recipe_id", this.id)
+        .executeAndFetch(Integer.class);
+    }
+  }
+
 }
