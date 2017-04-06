@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class Recipe {
+public class Recipe implements DatabaseManagement {
   private String name;
   private String instructions;
   private int id;
@@ -29,6 +31,7 @@ public class Recipe {
     return id;
   }
 
+  @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO recipes (name, instructions) VALUES (:name, :instructions)";
@@ -86,6 +89,17 @@ public class Recipe {
     }
   }
 
+  public void removeCategory(Category category) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM categories_recipes WHERE category_id = :category_id AND recipe_id = :recipe_id";
+      con.createQuery(sql)
+        .addParameter("category_id", category.getId())
+        .addParameter("recipe_id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  @Override
   public void remove() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "DELETE FROM recipes WHERE id = :id";
@@ -134,6 +148,16 @@ public class Recipe {
     }
   }
 
+  public void removeIngredient(Ingredient ingredient) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM recipes_ingredients WHERE recipe_id = :recipe_id AND ingredient_id = :ingredient_id";
+      con.createQuery(sql)
+        .addParameter("recipe_id", this.id)
+        .addParameter("ingredient_id", ingredient.getId())
+        .executeUpdate();
+    }
+  }
+
   public void vote(int rating) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO votes (rating, recipe_id) VALUES (:rating, :recipe_id)";
@@ -155,11 +179,24 @@ public class Recipe {
 
   public float averageVotes() {
     List<Integer> votes = this.getVotes();
-    float ratingsSum = 0;
-    for (int rating : votes) {
-      ratingsSum += rating;
+    if (votes.size() == 0) {
+      return 0;
+    } else {
+      float ratingsSum = 0;
+      for (int rating : votes) {
+        ratingsSum += rating;
+      }
+      return ratingsSum / votes.size();
     }
-    return ratingsSum / votes.size();
   }
+
+  // public static List<Recipe> listRanked() {
+  //   List<Recipe> recipes = Recipe.all();
+  //   for (int i = 0; i < Recipe.all().size(); i++) {
+  //     if ()
+  //   }
+  //
+  //   return recipes;
+  // }
 
 }

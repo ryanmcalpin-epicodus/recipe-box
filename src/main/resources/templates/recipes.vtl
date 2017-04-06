@@ -1,0 +1,10 @@
+<h1>RECIPES</h1>
+#if ($recipes.size() > 0)
+  #foreach ($recipe in $recipes)
+    <div class="panel panel-default">
+      $recipe.getName()
+    </div>
+  #end
+#else
+  <h3>No recipes yet.</h3>
+#end

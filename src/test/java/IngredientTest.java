@@ -56,4 +56,14 @@ public class IngredientTest {
     assertTrue(Ingredient.find(ingredient.getId()).getRecipes().get(0).equals(recipe1));
     assertTrue(Ingredient.find(ingredient.getId()).getRecipes().get(1).equals(recipe2));
   }
+
+  @Test
+  public void remove_removesIngredientsFromDB_0() {
+    Ingredient ingredient = new Ingredient("Name");
+    ingredient.save();
+    assertTrue(Ingredient.all().get(0).equals(ingredient));
+    assertTrue(Ingredient.all().size() > 0);
+    ingredient.remove();
+    assertEquals(0, Ingredient.all().size());
+  }
 }

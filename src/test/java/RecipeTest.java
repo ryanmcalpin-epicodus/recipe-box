@@ -62,6 +62,18 @@ public class RecipeTest {
   }
 
   @Test
+  public void removeCategory_disassociatesCategoryWithRecipe_0() {
+    Recipe recipe = new Recipe("Name", "Instructions");
+    recipe.save();
+    Category category = new Category("Name");
+    category.save();
+    recipe.addCategory(category);
+    assertTrue(Recipe.find(recipe.getId()).getCategories().get(0).equals(category));
+    recipe.removeCategory(category);
+    assertEquals(0, Recipe.find(recipe.getId()).getCategories().size());
+  }
+
+  @Test
   public void remove_removesRecipe_0() {
     Recipe recipe = new Recipe("Name", "Instructions");
     recipe.save();
@@ -105,8 +117,20 @@ public class RecipeTest {
   }
 
   @Test
+  public void removeIngredient_disassociatesIngredientWithRecipe_0() {
+    Recipe recipe = new Recipe("Name", "Instructions");
+    recipe.save();
+    Ingredient ingredient = new Ingredient("Name");
+    ingredient.save();
+    recipe.addIngredient(ingredient);
+    assertTrue(Recipe.find(recipe.getId()).getIngredients().get(0).equals(ingredient));
+    recipe.removeIngredient(ingredient);
+    assertEquals(0, Recipe.find(recipe.getId()).getIngredients().size());
+  }
+
+  @Test
   public void vote_addsVoteToDatabase_5() {
-    Recipe recipe = new Recipe("Name", "instructions");
+    Recipe recipe = new Recipe("Name", "Instructions");
     recipe.save();
     recipe.vote(5);
     recipe.vote(3);
@@ -116,11 +140,27 @@ public class RecipeTest {
 
   @Test
   public void averageVotes_returnsMeanAverageOfAllVotes_4() {
-    Recipe recipe = new Recipe("Name", "instructions");
+    Recipe recipe = new Recipe("Name", "Instructions");
     recipe.save();
     recipe.vote(5);
     recipe.vote(3);
     assertEquals(4, Recipe.find(recipe.getId()).averageVotes(), 0);
   }
+
+  // @Test
+  // public void listRanked_ordersRecipeFromHighToLowRank_true() {
+  //   Recipe recipe1 = new Recipe("Name", "Instructions");
+  //   recipe1.save();
+  //   recipe1.vote(3);
+  //   Recipe recipe2 = new Recipe("Name", "Instructions");
+  //   recipe2.save();
+  //   recipe2.vote(1);
+  //   Recipe recipe3 = new Recipe("Name", "Instructions");
+  //   recipe3.save();
+  //   recipe3.vote(5);
+  //   assertTrue(Recipe.listRanked().get(0).equals(recipe3));
+  //   assertTrue(Recipe.listRanked().get(1).equals(recipe1));
+  //   assertTrue(Recipe.listRanked().get(2).equals(recipe2));
+  // }
 
 }
