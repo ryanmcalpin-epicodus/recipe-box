@@ -1,0 +1,11 @@
+<h1>CATEGORIES</h1>
+<a href="/categories/new">ADD A CATEGORY</a>
+#if ($categories.size() > 0)
+  #foreach ($category in $categories)
+    <div class="panel panel-default">
+      $category.getName()
+    </div>
+  #end
+#else
+  <h3>No categories yet.</h3>
+#end

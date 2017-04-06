@@ -1,0 +1,12 @@
+<h1>NEW RECIPE</h1>
+<form action="/recipes" method="post" id="form">
+  <div class="form-group">
+    <label for="name">Recipe Name</label>
+    <input type="text" name="name" id="name" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="instructions">Instructions</label><br>
+    <textarea name="instructions" rows="8" cols="80" form="form" id="instructions" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">SUBMIT</button>
+</form>

@@ -1,0 +1,11 @@
+<h1>INGREDIENTS</h1>
+<a href="/ingredients/new">ADD AN INGREDIENT</a>
+#if ($ingredients.size() > 0)
+  #foreach ($ingredient in $ingredients)
+    <div class="panel panel-default">
+      $ingredient.getName()
+    </div>
+  #end
+#else
+  <h3>No ingredients yet.</h3>
+#end

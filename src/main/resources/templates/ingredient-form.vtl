@@ -1,0 +1,9 @@
+<h1>NEW INGREDIENT</h1>
+<form action="/ingredients" method="post">
+  <input type="hidden" name="recipeId" value="$recipe.getId()" id="recipeId">
+  <div class="form-group">
+    <label for="name">New Ingredient</label>
+    <input type="text" name="name" id="name" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">SUBMIT</button>
+</form>

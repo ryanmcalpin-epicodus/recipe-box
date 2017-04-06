@@ -1,0 +1,10 @@
+<h1>CHOOSE INGREDIENTS FOR $recipe.getName()</h1>
+Don't see your ingredient? <a href="/recipes/$recipe.getId()/ingredients/new">ADD TO INGREDIENTS</a>
+#if ($ingredients.size() > 0)
+  #foreach ($ingredient in $ingredients)
+    <a href="/recipes/$recipe.getId()/ingredients/$ingredient.getId()">$ingredient.getName()</a><br>
+  #end
+  </form>
+#else
+  <h3>No ingredients yet.</h3>
+#end
