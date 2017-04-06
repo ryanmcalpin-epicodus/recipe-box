@@ -1,7 +1,7 @@
 <h1>$recipe.getName()</h1>
 <h2>Ingredients</h2>
 <a href="/recipes/$recipe.getId()/ingredients">ADD INGREDIENTS</a><br>
-#if ($ingredients.size > 0)
+#if ($ingredients.size() > 0)
   #foreach ($ingredient in $ingredients)
     <div class="panel panel-default">
       $ingredient.getName()

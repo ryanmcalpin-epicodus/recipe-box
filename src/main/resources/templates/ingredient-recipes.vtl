@@ -1,0 +1,10 @@
+<h1>RECIPES THAT USE $ingredient.getName()</h1>
+#if ($recipes.size() > 0)
+  #foreach ($recipe in $recipes)
+    <div class="panel panel-default">
+      <a href="/recipes/recipe.getId()">$recipe.getName()</a>
+    </div>
+  #end
+#else
+  <h3>No ingredients yet.</h3>
+#end
